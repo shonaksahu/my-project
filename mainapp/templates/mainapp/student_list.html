@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>student List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "{% url 'mainapp:student_list' %}",
+                dataType: 'json',
+                success: function(response) {
+                    var students = response.students;
+                    for (var i = 0; i < student.length; i++) {
+                        var student = students[i];
+                        var row = "<tr><td>" + student.id + "</td><td>" + student.name + "</td></tr>";
+                        $('#student-table tbody').append(row);
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>student List</h1>
+    <table id="student-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Enrollment</th>
+                <th>School</th>
+                <th>Create_at</th>
+                <th>update_at</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+</html>

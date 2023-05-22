@@ -77,7 +77,34 @@ class StudentUpdateView(View):
             form.save()
             data =  {'success': True, 'message' : 'student updated successfully'}
 
+class SchoolDetailAPIVIEW(generics.RetrieveAPIView):
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        response_data = {
+            'status': True,
+            'message': 'School details retrieve',
+            'data' : serializer.data
+        }
+        return Response(response_data)
+
+class StudentDetailAPIVIEW(generics.RetrieveAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        response_data = {
+            'status': True,
+            'message': 'School details retrieve',
+            'data' : serializer.data
+        }
+        return Response(response_data)
+    
 class SchoolAPIView(APIView):
     def get(self, request):
         schools = School.objects.all()
@@ -148,30 +175,3 @@ class StudentDetailAPIView(APIView):
         student.delete()
         return Response({'success': True, 'message': 'Student deleted successfully.'})
     
-class SchoolDetailAPIVIEW(generics.RetrieveAPIView):
-    queryset = School.objects.all()
-    serializer_class = SchoolSerializer
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        response_data = {
-            'status': True,
-            'message': 'School details retrieve',
-            'data' : serializer.data
-        }
-        return Response(response_data)
-
-class StudentDetailAPIVIEW(generics.RetrieveAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        response_data = {
-            'status': True,
-            'message': 'School details retrieve',
-            'data' : serializer.data
-        }
-        return Response(response_data)
