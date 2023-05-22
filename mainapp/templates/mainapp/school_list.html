@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "{% url 'mainapp:school_list' %}",
+                dataType: 'json',
+                success: function(response) {
+                    var schools = response.schools;
+                    for (var i = 0; i < schools.length; i++) {
+                        var school = schools[i];
+                        var row = "<tr><td>" + school.id + "</td><td>" + school.name + "</td></tr>";
+                        $('#school-table tbody').append(row);
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>School List</h1>
+    <table id="school-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+</html>
